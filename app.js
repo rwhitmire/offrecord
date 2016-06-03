@@ -54,4 +54,8 @@ app.use(function(err, req, res, next) {
 });
 
 
+const worker = require('./worker');
+worker.run();
+
+
 module.exports = app;

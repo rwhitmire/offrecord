@@ -1,3 +1,5 @@
+const Message = require('./models/Message')
+
 module.exports = function(io) {
   io.on('connection', socket => {
     console.log('a user connected');
@@ -10,6 +12,7 @@ module.exports = function(io) {
 
     socket.on('message', message => {
       io.to(message.roomId).emit('message', message);
+      Message.create(message);
     });
   });
 };
