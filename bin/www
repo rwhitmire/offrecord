@@ -32,7 +32,7 @@ server.on('listening', onListening)
 /**
  * initialize socket.io and pass instance to the socket module.
  */
-require('../ws')(require('socket.io').listen(server))
+// require('../ws')(require('socket.io').listen(server))
 
 /**
  * Normalize a port into a number, string, or false.
