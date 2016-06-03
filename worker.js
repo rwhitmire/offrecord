@@ -1,16 +1,15 @@
 const store = require('./store');
 const messageMap = store.messages;
 
-const INTERVAL = 5000;
+const INTERVAL = 1000 * 60;
 
 const destroyOldMessages = () => {
   console.log('destroying old messages.');
+  const thirtyMinutesAgo = Date.now() - (1000 * 60 * 30);
 
   Object.keys(messageMap).forEach(key => {
-    const messageArr = messageMap[key];
-
-    messageArr.forEach(message => {
-
+    messageMap[key] = messageMap[key].filter(message => {
+      return message.timestamp > thirtyMinutesAgo
     });
   });
 };
