@@ -2,17 +2,20 @@ const Message = require('./models/Message')
 
 module.exports = function(io) {
   io.on('connection', socket => {
-    console.log('a user connected');
-    socket.join(socket.handshake.query.roomId);
-    console.log('user has joined room', socket.handshake.query.roomId);
+    console.log('a user connected')
 
     socket.on('disconnect', () => {
-      console.log('user disconnected');
-    });
+      console.log('user disconnected')
+    })
+
+    socket.on('join_room', roomId => {
+      socket.join(roomId)
+      console.log('user has joined room', roomId)
+    })
 
     socket.on('message', message => {
-      io.to(message.roomId).emit('message', message);
-      Message.create(message);
-    });
-  });
-};
+      io.to(message.roomId).emit('message', message)
+      Message.create(message)
+    })
+  })
+}

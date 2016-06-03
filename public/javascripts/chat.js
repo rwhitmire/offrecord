@@ -2,7 +2,9 @@
   'use strict'
 
   const { messages, username, roomId } = window.payload
-  const socket = io(undefined, {query: { roomId }});
+  const socket = io()
+
+  socket.emit('join_room', roomId)
 
   socket.on('message', message => {
     messages.push(message)
@@ -15,7 +17,7 @@
       username,
       roomId,
       timestamp: Date.now()
-    });
+    })
   }
 
   const Message = {
