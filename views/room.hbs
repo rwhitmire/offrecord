@@ -1,0 +1,13 @@
+<div id="chat"></div>
+
+<script>
+  window.payload = {
+    roomId: '{{ roomId }}',
+    username: '{{ username }}',
+    messages: {{{ messages }}}
+  }
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/mithril/0.2.5/mithril.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/chat.js"></script>
