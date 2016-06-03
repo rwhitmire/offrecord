@@ -7,8 +7,10 @@
   socket.emit('join_room', roomId)
 
   socket.on('message', message => {
-    messages.push(message)
-    m.redraw()
+    scrollToBottom(() => {
+      messages.push(message)
+      m.redraw()
+    });
   })
 
   function sendMessage(text) {
@@ -20,15 +22,38 @@
     })
   }
 
+  /**
+   * if the user has scrolled up, don't force
+   * the scrollbar back to the bottom
+   */
+  function isScrolledToBottom() {
+    return (window.innerHeight + window.scrollY) >= document.body.offsetHeight
+  }
+
+  function scrollToBottom(callback) {
+    if(!isScrolledToBottom()) return
+    if(callback) callback()
+
+    function scroll() {
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    scroll()
+    // mithril might not be done painting
+    setTimeout(scroll, 20)
+  }
+
   const Message = {
     controller: function(params) {
       this.message = params.message
     },
 
     view: function(ctrl) {
-      return m('div', [
-        m('div', new Date(ctrl.message.timestamp).toLocaleTimeString()),
-        m('div', ctrl.message.username),
+      return m('.message', [
+        m('div.message-title', [
+          m('span.message-username', ctrl.message.username),
+          m('span.message-timestamp', new Date(ctrl.message.timestamp).toLocaleTimeString())
+        ]),
         m('div', ctrl.message.text)
       ])
     }
@@ -36,7 +61,7 @@
 
   const MessageList = {
     view: function() {
-      return m('div', messages.map(message => {
+      return m('.message-list', messages.map(message => {
         return m(Message, {message})
       }))
     }
@@ -44,23 +69,20 @@
 
   const MessageForm = {
     controller: function() {
-      this.onsubmit = e => {
-        e.preventDefault()
-
-        if(e.target.message.value) {
-          sendMessage(e.target.message.value)
-          e.target.message.value = ''
+      this.onkeypress = e => {
+        if(e.keyCode === 13 && !e.shiftKey) {
+          sendMessage(e.target.value)
+          e.target.value = ''
+          e.target.focus()
+          return false
         }
       }
     },
 
     view: function(ctrl) {
-      return m('div', [
-        m('form', {onsubmit: ctrl.onsubmit}, [
-          m('textarea[name=message]'),
-          m('div', [
-            m('button', 'send')
-          ])
+      return m('.message-form', [
+        m('.message-form-inner', [
+          m('textarea[name=message]', { onkeypress: ctrl.onkeypress })
         ])
       ])
     }
@@ -68,13 +90,16 @@
 
   const Chat = {
     view: function() {
-      return m('div', [
-        MessageList,
-        MessageForm
+      return m('.chat', [
+        m('.chat-inner', [
+          MessageList,
+          MessageForm
+        ])
       ])
     }
   }
 
   m.mount(document.getElementById('chat'), Chat)
+  scrollToBottom();
 
 }())
