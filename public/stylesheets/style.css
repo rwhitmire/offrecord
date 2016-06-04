@@ -3,6 +3,7 @@ html, body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   color: #505050;
+  font-size: .9rem;
 }
 
 * {
@@ -11,7 +12,7 @@ html, body {
 
 .chat {
   padding: 20px;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -26,7 +27,7 @@ html, body {
 .message-form-inner {
   padding: 20px;
   padding-top: 0;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -45,8 +46,7 @@ html, body {
 }
 
 .message-list {
-  padding-bottom: 80px;
-  padding-top: 30px;
+  padding-bottom: 50px;
 }
 
 .message {
@@ -55,6 +55,8 @@ html, body {
 
 .message pre {
   font-family: 'Roboto', sans-serif;
+  margin: 0;
+  white-space: pre-wrap;
 }
 
 .message-title {
@@ -69,4 +71,41 @@ html, body {
 .message-timestamp {
   color: #999;
   font-size: .8rem;
+}
+
+.online-users {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background: whitesmoke;
+  width: 220px;
+}
+
+.online-users ul {
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+}
+
+.online-users .status {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.online-users .status.online {
+  background: #15E21C;
+}
+
+.online-users li {
+  margin-bottom: 6px;
+}
+
+@media (max-width: 800px) {
+  .online-users {
+    display: none;
+  }
 }

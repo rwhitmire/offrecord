@@ -1,4 +1,4 @@
-const Message = require('./models/message')
+const messageStore = require('./stores/message')
 
 module.exports = function(io) {
   io.on('connection', socket => {
@@ -8,14 +8,14 @@ module.exports = function(io) {
       console.log('user disconnected')
     })
 
-    socket.on('join_room', roomId => {
-      socket.join(roomId)
-      console.log('user has joined room', roomId)
+    socket.on('join_room', data => {
+      socket.join(data.roomId)
+      console.log(`${socket.id} --> ${data.username} has joined room ${data.roomId}`)
     })
 
     socket.on('message', message => {
       io.to(message.roomId).emit('message', message)
-      Message.create(message)
+      messageStore.create(message)
     })
   })
 }

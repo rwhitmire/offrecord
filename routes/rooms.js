@@ -1,6 +1,6 @@
 var express = require('express')
 var shortid = require('shortid')
-var Message = require('../models/message')
+var messageStore = require('../stores/message')
 var router = express.Router()
 
 router.post('/new', (req, res, next) => {
@@ -22,7 +22,7 @@ router.get('/:id', (req, res, next) => {
     return res.redirect(`/rooms/${req.params.id}/login`)
   }
 
-  Message.getAllByRoomId(req.params.id, messages => {
+  messageStore.getAllByRoomId(req.params.id, messages => {
     res.render('room', {
       messages: JSON.stringify(messages),
       username: req.cookies.username,

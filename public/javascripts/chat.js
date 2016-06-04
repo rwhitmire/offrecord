@@ -4,13 +4,13 @@
   const { messages, username, roomId } = window.payload
   const socket = io()
 
-  socket.emit('join_room', roomId)
+  socket.emit('join_room', { roomId, username })
 
   socket.on('message', message => {
     conditionalScrollToBottom(() => {
       messages.push(message)
       m.redraw()
-    });
+    })
   })
 
   function sendMessage(text) {
@@ -92,9 +92,31 @@
     }
   }
 
+  const OnlineUsers = {
+    view: function() {
+      return m('.online-users', [
+        m('ul', [
+          m('li', [
+            m('span.status.online'),
+            m('span.username', 'ryanw51@gmail.com')
+          ]),
+          m('li', [
+            m('span.status.online'),
+            m('span.username', 'ryanw51@gmail.com')
+          ]),
+          m('li', [
+            m('span.status.online'),
+            m('span.username', 'ryanw51@gmail.com')
+          ])
+        ])
+      ])
+    }
+  }
+
   const Chat = {
     view: function() {
       return m('.chat', [
+        // OnlineUsers,
         m('.chat-inner', [
           MessageList,
           MessageForm
