@@ -7,7 +7,7 @@
   socket.emit('join_room', roomId)
 
   socket.on('message', message => {
-    scrollToBottom(() => {
+    conditionalScrollToBottom(() => {
       messages.push(message)
       m.redraw()
     });
@@ -30,17 +30,21 @@
     return (window.innerHeight + window.scrollY) >= document.body.offsetHeight
   }
 
-  function scrollToBottom(callback) {
-    if(!isScrolledToBottom()) return
-    if(callback) callback()
-
+  function scrollToBottom() {
     function scroll() {
       window.scrollTo(0, document.body.scrollHeight);
     }
 
     scroll()
     // mithril might not be done painting
-    setTimeout(scroll, 20)
+    setTimeout(scroll, 30)
+    setTimeout(scroll, 100)
+  }
+
+  function conditionalScrollToBottom(callback) {
+    if(!isScrolledToBottom()) return
+    if(callback) callback()
+    scrollToBottom()
   }
 
   const Message = {
@@ -54,7 +58,7 @@
           m('span.message-username', ctrl.message.username),
           m('span.message-timestamp', new Date(ctrl.message.timestamp).toLocaleTimeString())
         ]),
-        m('div', ctrl.message.text)
+        m('pre', ctrl.message.text)
       ])
     }
   }
@@ -100,6 +104,6 @@
   }
 
   m.mount(document.getElementById('chat'), Chat)
-  scrollToBottom();
+  scrollToBottom()
 
 }())
