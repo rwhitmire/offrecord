@@ -1,6 +1,9 @@
 var express = require('express')
 var shortid = require('shortid')
+var atob = require('atob')
+var btoa = require('btoa')
 var messageStore = require('../stores/message')
+var roomUsersStore = require('../stores/roomUsers')
 var router = express.Router()
 
 router.post('/new', (req, res, next) => {
@@ -13,20 +16,34 @@ router.get('/:id/login', (req, res, next) => {
 })
 
 router.post('/:id/login', (req, res, next) => {
-  res.cookie('username', req.body.username)
+  const session = {
+    id: shortid(),
+    username: req.body.username
+  }
+
+  const encodedSession = btoa(JSON.stringify(session))
+
+  res.cookie('session', encodedSession)
   res.redirect(`/rooms/${req.params.id}`)
 })
 
 router.get('/:id', (req, res, next) => {
-  if(!req.cookies.username) {
-    return res.redirect(`/rooms/${req.params.id}/login`)
+  const roomId = req.params.id
+
+  if(!req.cookies.session) {
+    return res.redirect(`/rooms/${roomId}/login`)
   }
 
-  messageStore.getAllByRoomId(req.params.id, messages => {
-    res.render('room', {
-      messages: JSON.stringify(messages),
-      username: req.cookies.username,
-      roomId: req.params.id
+  const user = JSON.parse(atob(req.cookies.session))
+  const roomUsers = roomUsersStore.get(roomId)
+  const messages = messageStore.getAllByRoomId(roomId)
+
+  res.render('room', {
+    payload: JSON.stringify({
+      messages,
+      user,
+      roomId,
+      roomUsers
     })
   })
 })

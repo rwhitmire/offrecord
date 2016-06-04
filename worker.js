@@ -1,5 +1,5 @@
-const store = require('./store')
-const messageMap = store.messages
+const store = require('./stores/message')
+const messageMap = store.getState()
 
 const INTERVAL = 1000 * 60
 

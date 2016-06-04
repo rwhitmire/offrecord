@@ -1,10 +1,16 @@
 (function() {
   'use strict'
 
-  const { messages, username, roomId } = window.payload
+  let { messages, user, roomId, roomUsers } = window.payload
   const socket = io()
 
-  socket.emit('join_room', { roomId, username })
+  console.log('room users:', roomUsers)
+
+  /**
+   * join the room immediately
+   */
+  socket.emit('join room', { roomId, user })
+
 
   socket.on('message', message => {
     conditionalScrollToBottom(() => {
@@ -13,22 +19,36 @@
     })
   })
 
+
+  socket.on('join room', data => {
+    console.log('join room', data.user)
+    roomUsers = data.roomUsers
+    m.redraw()
+  })
+
+
+  socket.on('disconnect', data => {
+    console.log('disconnect', data.user)
+    roomUsers = data.roomUsers
+    m.redraw()
+  })
+
+
   function sendMessage(text) {
     socket.emit('message', {
       text,
-      username,
-      roomId,
       timestamp: Date.now()
     })
   }
 
+
   /**
-   * if the user has scrolled up, don't force
-   * the scrollbar back to the bottom
+   * is the windows scrolled to the bottom?
    */
   function isScrolledToBottom() {
     return (window.innerHeight + window.scrollY) >= document.body.offsetHeight
   }
+
 
   function scrollToBottom() {
     function scroll() {
@@ -41,11 +61,17 @@
     setTimeout(scroll, 100)
   }
 
+
+  /**
+   * scroll to the bottom, but only if the scroll position
+   * was at the bottom prior to the callback executing
+   */
   function conditionalScrollToBottom(callback) {
     if(!isScrolledToBottom()) return
     if(callback) callback()
     scrollToBottom()
   }
+
 
   const Message = {
     controller: function(params) {
@@ -55,13 +81,14 @@
     view: function(ctrl) {
       return m('.message', [
         m('div.message-title', [
-          m('span.message-username', ctrl.message.username),
+          m('span.message-username', ctrl.message.user.username),
           m('span.message-timestamp', new Date(ctrl.message.timestamp).toLocaleTimeString())
         ]),
         m('pre', ctrl.message.text)
       ])
     }
   }
+
 
   const MessageList = {
     view: function() {
@@ -70,6 +97,7 @@
       }))
     }
   }
+
 
   const MessageForm = {
     controller: function() {
@@ -92,31 +120,36 @@
     }
   }
 
+
   const OnlineUsers = {
-    view: function() {
+    controller: function() {
+      this.getOnlineUsers = function() {
+        return Object.keys(roomUsers || {}).map(key => {
+          return {
+            id: key,
+            username: roomUsers[key].username
+          }
+        })
+      }
+    },
+
+    view: function(ctrl) {
       return m('.online-users', [
-        m('ul', [
-          m('li', [
+        m('ul', ctrl.getOnlineUsers().map(user => {
+          return m('li', [
             m('span.status.online'),
-            m('span.username', 'ryanw51@gmail.com')
-          ]),
-          m('li', [
-            m('span.status.online'),
-            m('span.username', 'ryanw51@gmail.com')
-          ]),
-          m('li', [
-            m('span.status.online'),
-            m('span.username', 'ryanw51@gmail.com')
+            m('span.username', user.username)
           ])
-        ])
+        }))
       ])
     }
   }
 
+
   const Chat = {
     view: function() {
       return m('.chat', [
-        // OnlineUsers,
+        OnlineUsers,
         m('.chat-inner', [
           MessageList,
           MessageForm
@@ -124,6 +157,7 @@
       ])
     }
   }
+
 
   m.mount(document.getElementById('chat'), Chat)
   scrollToBottom()

@@ -1,20 +1,27 @@
 'use strict'
 
 /**
- * keys are room ids.
+ * STATE STRUCTURE:
+ *
+ * {
+ *   'roomid': [{ ..., text: 'message', ... }]
+ * }
+ *
  */
-const messageMap = {}
+const state = {}
 
-const store = {}
+module.exports = {
+  getState() {
+    return state
+  },
 
-store.getAllByRoomId = (id, callback) => {
-  callback(messageMap[id] || [])
+  getAllByRoomId(id) {
+    return state[id] || []
+  },
+
+  create(message) {
+    const messages = state[message.roomId] || []
+    messages.push(message)
+    state[message.roomId] = messages
+  }
 }
-
-store.create = message => {
-  const messages = messageMap[message.roomId] || []
-  messages.push(message)
-  messageMap[message.roomId] = messages
-}
-
-module.exports = store
