@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "dev": "npm run dev:server & npm run dev:client",
     "dev:server": "set DEBUG=offrecord:* && nodemon ./bin/www --ignore client --ignore public",
     "dev:client": "set NODE_ENV=development& webpack -w",
     "start": "node ./bin/www",
