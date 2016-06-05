@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "SET DEBUG=offrecord:* & nodemon ./bin/www",
+    "dev:server": "set DEBUG=offrecord:* && nodemon ./bin/www --ignore client --ignore public",
+    "dev:client": "set NODE_ENV=development& webpack -w",
     "start": "node ./bin/www",
-    "deploy": "git push heroku master"
+    "deploy": "git push heroku master",
+    "postinstall": "webpack"
   },
   "dependencies": {
     "atob": "^2.0.3",
@@ -21,7 +23,8 @@
     "socket.io": "^1.4.6"
   },
   "devDependencies": {
-    "nodemon": "^1.9.2"
+    "nodemon": "^1.9.2",
+    "webpack": "^1.13.1"
   },
   "engines": {
     "node": "4.4.5"
