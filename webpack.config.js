@@ -1,4 +1,5 @@
 var webpack = require('webpack')
+var path = require('path')
 
 var devtool = null
 var plugins = []
@@ -38,6 +39,15 @@ module.exports = {
     path: __dirname + "/public/javascripts/bundles",
     filename: "chat.js"
   },
+
+  module: {
+    loaders: [{
+      test: /\.js$/,
+      loaders: ['babel'],
+      include: path.join(__dirname, 'client')
+    }]
+  },
+
   devtool: devtool,
   plugins: plugins
 }
