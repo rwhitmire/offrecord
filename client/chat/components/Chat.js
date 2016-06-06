@@ -13,6 +13,10 @@ window.onblur = function() {
   windowFocused = false
 }
 
+if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
+  Notification.requestPermission();
+}
+
 function windowHasFocus() {
   return windowFocused
 }
@@ -20,13 +24,6 @@ function windowHasFocus() {
 function notify(message) {
   if (Notification.permission === 'granted') {
     var notification = new Notification(message);
-  }
-  else if (Notification.permission !== 'denied') {
-    Notification.requestPermission(function (permission) {
-      if (permission === 'granted') {
-        var notification = new Notification(message);
-      }
-    });
   }
 }
 
