@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import linkify from '../helpers/linkify'
+import emojione from 'emojione'
 
 class Message extends Component {
   render() {
@@ -12,7 +13,7 @@ class Message extends Component {
           <span className="message-timestamp">{new Date(message.timestamp).toLocaleTimeString()}</span>
         </div>
         <pre>
-          {linkify(message.text)}
+          {linkify(emojione.shortnameToUnicode(message.text))}
         </pre>
       </div>
     );
