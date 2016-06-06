@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import linkify from '../helpers/linkify'
 
 class Message extends Component {
   render() {
@@ -10,7 +11,9 @@ class Message extends Component {
           <span className="message-username">{message.user.username}</span>
           <span className="message-timestamp">{new Date(message.timestamp).toLocaleTimeString()}</span>
         </div>
-        <pre>{message.text}</pre>
+        <pre>
+          {linkify(message.text)}
+        </pre>
       </div>
     );
   }
