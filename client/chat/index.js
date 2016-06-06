@@ -10,16 +10,8 @@ function isScrolledToBottom() {
 }
 
 function scrollToBottom() {
-  function scroll() {
-    window.scrollTo(0, document.body.scrollHeight);
-  }
-
-  scroll()
-  // mithril might not be done painting
-  setTimeout(scroll, 30)
-  setTimeout(scroll, 100)
+  window.scrollTo(0, document.body.scrollHeight);
 }
-
 
 /**
  * scroll to the bottom, but only if the scroll position
