@@ -51,17 +51,7 @@ html, body {
 }
 
 .message {
-  margin-bottom: 20px;
-}
-
-.message pre {
-  font-family: 'Roboto', sans-serif;
-  margin: 0;
-  white-space: pre-wrap;
-}
-
-.message pre p {
-  margin: 0;
+  margin-bottom: 26px;
 }
 
 .message-title {
@@ -81,6 +71,10 @@ html, body {
 
 .message-text {
   font-size: 1rem;
+}
+
+.message-text p {
+  margin: 0;
 }
 
 .message-text code {
