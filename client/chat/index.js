@@ -18,8 +18,9 @@ function scrollToBottom() {
  * was at the bottom prior to the callback executing
  */
 function conditionalScrollToBottom(callback) {
-  if(!isScrolledToBottom()) return
+  const shouldScroll = isScrolledToBottom();
   if(callback) callback()
+  if(!shouldScroll) return
   scrollToBottom()
 }
 
