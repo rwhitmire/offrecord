@@ -1,10 +1,21 @@
 import React, { Component } from 'react'
 import linkify from '../helpers/linkify'
-import emojione from 'emojione'
+import emojify from '../helpers/emojify'
+import markdownify from '../helpers/markdownify'
 
 class Message extends Component {
   render() {
     const { message } = this.props
+
+    const rawMarkup = function() {
+      let html = message.text
+
+      html = markdownify(html)
+      html = linkify(html)
+      html = emojify(html)
+
+      return { __html: html };
+    }
 
     return (
       <div className="message">
@@ -12,9 +23,9 @@ class Message extends Component {
           <span className="message-username">{message.user.username}</span>
           <span className="message-timestamp">{new Date(message.timestamp).toLocaleTimeString()}</span>
         </div>
-        <pre>
-          {linkify(emojione.shortnameToUnicode(message.text))}
-        </pre>
+        <div className="message-text">
+          <pre dangerouslySetInnerHTML={rawMarkup()} />
+        </div>
       </div>
     );
   }

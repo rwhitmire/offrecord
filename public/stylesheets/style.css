@@ -51,7 +51,7 @@ html, body {
 }
 
 .message {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .message pre {
@@ -60,8 +60,13 @@ html, body {
   white-space: pre-wrap;
 }
 
+.message pre p {
+  margin: 0;
+}
+
 .message-title {
   margin-bottom: 4px;
+  font-size: 1.1rem;
 }
 
 .message-username {
@@ -72,6 +77,18 @@ html, body {
 .message-timestamp {
   color: #999;
   font-size: .8rem;
+}
+
+.message-text {
+  font-size: 1rem;
+}
+
+.message-text code {
+  background: whitesmoke;
+  color: deeppink;
+  display: inline-block;
+  padding: 2px;
+  border-radius: 2px;
 }
 
 .online-users {
@@ -109,4 +126,11 @@ html, body {
   .online-users {
     display: none;
   }
+}
+
+.emojione {
+  display: inline-block;
+  vertical-align: middle;
+  height: 1rem;
+  width: 1rem;
 }

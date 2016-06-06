@@ -28,6 +28,7 @@
     "morgan": "~1.6.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
+    "remarkable": "^1.6.2",
     "serve-favicon": "~2.3.0",
     "shortid": "^2.2.6",
     "socket.io": "^1.4.6",
