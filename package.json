@@ -7,8 +7,9 @@
     "dev:server": "set DEBUG=offrecord:* && nodemon ./bin/www --ignore client --ignore public",
     "dev:client": "set NODE_ENV=development& webpack -w",
     "start": "node ./bin/www",
-    "deploy": "git push heroku master",
-    "postinstall": "webpack"
+    "deploy": "npm test && git push heroku master",
+    "postinstall": "webpack",
+    "test": "jest"
   },
   "dependencies": {
     "atob": "^2.0.3",
@@ -34,9 +35,19 @@
     "webpack": "^1.13.1"
   },
   "devDependencies": {
-    "nodemon": "^1.9.2"
+    "babel-jest": "^12.1.0",
+    "enzyme": "^2.3.0",
+    "jest-cli": "^12.1.1",
+    "nodemon": "^1.9.2",
+    "react-addons-test-utils": "^15.1.0"
   },
   "engines": {
     "node": "4.4.5"
+  },
+  "jest": {
+    "unmockedModulePathPatterns": [
+      "react",
+      "enzyme"
+    ]
   }
 }

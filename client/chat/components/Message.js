@@ -5,13 +5,13 @@ import markdownify from '../helpers/markdownify'
 class Message extends Component {
   renderDataMessage() {
     return(
-      <img src={this.props.message.data} />
+      <img className="message-image" src={this.props.message.data} />
     )
   }
 
   renderTextMessage() {
     return(
-      <span dangerouslySetInnerHTML={{ __html: emojify(markdownify(this.props.message.text)) }} />
+      <span className="message-text" dangerouslySetInnerHTML={{ __html: emojify(markdownify(this.props.message.text)) }} />
     )
   }
 
