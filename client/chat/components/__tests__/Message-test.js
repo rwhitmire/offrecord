@@ -44,7 +44,22 @@ describe('Message', () => {
     expect(wrapper.find('img').length).toBe(1)
   })
 
-  // todo: test markdown
+  it('should markdownify text', () => {
+    const message = createMessage('`foo`')
+    const wrapper = render(<Message message={message} />)
+    expect(wrapper.find('code').length).toBe(1)
+  })
 
-  // todo: test combinations of emoji and markdown
+  it('should markdownify and emojify text', () => {
+    const message = createMessage(':poop: `foo` :smile: `bar`')
+    const wrapper = render(<Message message={message} />)
+    expect(wrapper.find('code').length).toBe(2)
+    expect(wrapper.find('img').length).toBe(2)
+  })
+
+  it('should prevent xss', () => {
+    const message = createMessage('<script>alert("hi")</script>')
+    const wrapper = render(<Message message={message} />)
+    expect(wrapper.html()).toContain('&lt;script&gt;alert(&quot;hi&quot;)&lt;/script&gt;')
+  })
 })

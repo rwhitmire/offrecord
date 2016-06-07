@@ -22,9 +22,36 @@ function windowHasFocus() {
   return windowFocused
 }
 
-function notify(message) {
+
+
+// if (typeof Notification !== 'undefined') {
+//   alert('Please us a modern version of Chrome, Firefox, Opera or Safari.');
+//   return;
+// }
+
+// Notification.requestPermission(function (permission) {
+//   if (permission !== 'granted') return;
+
+//   var notification = new Notification('Here is the title', {
+//     icon: 'http://path.to/my/icon.png',
+//     body: 'Some body text',
+//   });
+
+//   notification.onclick = function () {
+//     window.focus();
+//   };
+// });
+
+function notify(title, body) {
   if (Notification.permission === 'granted') {
-    var notification = new Notification(message);
+    const notification = new Notification(title, {
+      icon: null,
+      body
+    });
+
+    notification.onclick = () => {
+      window.focus()
+    }
   }
 }
 
@@ -59,7 +86,7 @@ class Chat extends Component {
       })
 
       if(!windowHasFocus()){
-        notify(message.text)
+        notify(message.user.username, message.text)
       }
     })
 
