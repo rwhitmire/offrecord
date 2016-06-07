@@ -3,7 +3,6 @@ html, body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   color: #505050;
-  font-size: .9rem;
 }
 
 * {
@@ -56,7 +55,6 @@ html, body {
 
 .message-title {
   margin-bottom: 4px;
-  font-size: 1.1rem;
 }
 
 .message-username {
@@ -67,10 +65,6 @@ html, body {
 .message-timestamp {
   color: #999;
   font-size: .8rem;
-}
-
-.message-content {
-  font-size: 1rem;
 }
 
 .message-content p {
