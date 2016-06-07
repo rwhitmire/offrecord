@@ -1,7 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Raleway', sans-serif;
   color: #505050;
 }
 
@@ -9,10 +9,17 @@ html, body {
   box-sizing: border-box;
 }
 
+a {
+  color: #7a00ff;
+}
+
+a:visited {
+  color: #ff8f00;
+}
+
 .chat {
   padding: 20px;
-  max-width: 600px;
-  margin: 0 auto;
+  margin-left: 240px;
 }
 
 .message-form {
@@ -26,18 +33,25 @@ html, body {
 .message-form-inner {
   padding: 20px;
   padding-top: 0;
-  max-width: 600px;
-  margin: 0 auto;
+  margin-left: 240px;
 }
 
 .message-form textarea {
   display: block;
   width: 100%;
-  padding: 10px;
-  border: 2px solid #ccc;
+  padding: 10px 0;
   resize: none;
-  border-radius: 3px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Raleway', sans-serif;
+  border: none;
+  border-bottom: 2px solid #e6e6e6;
+  font-size: 1.1rem;
+  transition: 500ms;
+  height: 44px;
+}
+
+.message-form textarea:focus {
+  border-color: #7a00ff;
+  transition: 800ms;
 }
 
 .message-form textarea:focus {
@@ -46,11 +60,21 @@ html, body {
 
 .message-list {
   margin-bottom: -30px;
-  padding-bottom: 90px;
+  padding-bottom: 80px;
 }
 
 .message {
   margin-bottom: 26px;
+  padding: 6px;
+  margin-left: -6px;
+  margin-right: -6px;
+  transition: 200ms;
+}
+
+.message:hover {
+  background: #f9f9f9;
+  transition: 200ms;
+  border-radius: 3px;
 }
 
 .message-title {
@@ -85,9 +109,8 @@ html, body {
 
 .online-users {
   position: fixed;
-  right: 20px;
-  top: 20px;
-  background: whitesmoke;
+  left: 0;
+  top: 0;
   width: 220px;
 }
 
@@ -106,18 +129,17 @@ html, body {
   vertical-align: middle;
 }
 
+.online-users .username {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .online-users .status.online {
-  background: #15E21C;
+  background: #94E864;
 }
 
 .online-users li {
   margin-bottom: 6px;
-}
-
-@media (max-width: 800px) {
-  .online-users {
-    display: none;
-  }
 }
 
 .emojione {
@@ -125,4 +147,20 @@ html, body {
   vertical-align: middle;
   height: 1rem;
   width: 1rem;
+}
+
+@media (max-width: 800px) {
+  .online-users {
+    display: none;
+  }
+
+  .chat {
+    margin-left: 0;
+  }
+
+  .message-form-inner {
+    padding: 20px;
+    padding-top: 0;
+    margin-left: 0;
+  }
 }

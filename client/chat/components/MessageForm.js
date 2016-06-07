@@ -4,6 +4,7 @@ class MessageForm extends Component {
   onKeyPress(e) {
     if(e.which === 13 && !e.shiftKey) {
       e.preventDefault()
+      if(!this.refs.text.value.trim()) return;
       this.props.onSendMessage(this.refs.text.value)
       this.refs.text.value = ''
       this.refs.text.focus()

@@ -1,8 +1,17 @@
 import React, { Component } from 'react'
+import { findDOMNode } from 'react-dom'
 import emojify from '../helpers/emojify'
 import markdownify from '../helpers/markdownify'
 
 class Message extends Component {
+  componentDidMount() {
+    const anchors = findDOMNode(this).querySelectorAll('a')
+
+    Object.keys(anchors).forEach(key => {
+      anchors[key].setAttribute('target', 'blank')
+    })
+  }
+
   renderDataMessage() {
     return(
       <img className="message-image" src={this.props.message.data} />
