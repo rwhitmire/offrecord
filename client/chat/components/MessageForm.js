@@ -24,4 +24,6 @@ class MessageForm extends Component {
   }
 }
 
+// todo: add PropTypes
+
 export default MessageForm

@@ -11,7 +11,11 @@ class Message extends Component {
 
   renderTextMessage() {
     return(
-      <span className="message-text" dangerouslySetInnerHTML={{ __html: emojify(markdownify(this.props.message.text)) }} />
+      <span
+        className="message-text"
+        dangerouslySetInnerHTML={{
+          __html: emojify(markdownify(this.props.message.text))
+        }} />
     )
   }
 
@@ -43,5 +47,7 @@ class Message extends Component {
     );
   }
 }
+
+// todo: add PropTypes
 
 export default Message

@@ -32,6 +32,7 @@ class Chat extends Component {
   constructor(props) {
     super(props);
 
+    // todo: pass these in via props
     const { messages, user, roomId, roomUsers } = window.payload
 
     this.state = {
@@ -105,5 +106,7 @@ class Chat extends Component {
     )
   }
 }
+
+// todo: add PropTypes
 
 export default Chat

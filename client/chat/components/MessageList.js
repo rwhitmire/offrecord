@@ -15,4 +15,6 @@ class MessageList extends Component {
   }
 }
 
+// todo: add PropTypes
+
 export default MessageList

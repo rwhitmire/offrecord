@@ -28,4 +28,6 @@ class OnlineUsers extends Component {
   }
 }
 
+// todo: add PropTypes
+
 export default OnlineUsers

@@ -43,4 +43,8 @@ describe('Message', () => {
     const wrapper = render(<Message message={message} />)
     expect(wrapper.find('img').length).toBe(1)
   })
+
+  // todo: test markdown
+
+  // todo: test combinations of emoji and markdown
 })
