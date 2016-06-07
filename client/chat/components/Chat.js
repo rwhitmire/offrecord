@@ -72,6 +72,34 @@ class Chat extends Component {
         roomUsers: data.roomUsers
       })
     })
+
+    // handle image paste
+    document.onpaste = event => {
+      var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+
+      for (var index in items) {
+        var item = items[index];
+
+        if (item.kind === 'file') {
+          var blob = item.getAsFile();
+          var reader = new FileReader();
+
+          reader.onload = e => {
+            console.log(e.target.result)
+            this.sendImage(e.target.result)
+          }
+
+          reader.readAsDataURL(blob);
+        }
+      }
+    }
+  }
+
+  sendImage(data) {
+    this.socket.emit('message', {
+      data,
+      timestamp: Date.now()
+    })
   }
 
   sendMessage(text) {

@@ -3,6 +3,26 @@ import emojify from '../helpers/emojify'
 import markdownify from '../helpers/markdownify'
 
 class Message extends Component {
+  renderDataMessage() {
+    return(
+      <img src={this.props.message.data} />
+    )
+  }
+
+  renderTextMessage() {
+    return(
+      <span dangerouslySetInnerHTML={{ __html: emojify(markdownify(this.props.message.text)) }} />
+    )
+  }
+
+  renderMessageContent() {
+    if(this.props.message.data) {
+      return this.renderDataMessage()
+    } else {
+      return this.renderTextMessage()
+    }
+  }
+
   render() {
     const { message } = this.props
 
@@ -16,11 +36,9 @@ class Message extends Component {
             {new Date(message.timestamp).toLocaleTimeString()}
           </span>
         </div>
-        <div
-          className="message-text"
-          dangerouslySetInnerHTML={{
-            __html: emojify(markdownify(message.text))
-          }} />
+        <div className="message-content">
+          {this.renderMessageContent()}
+        </div>
       </div>
     );
   }

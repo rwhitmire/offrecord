@@ -69,15 +69,19 @@ html, body {
   font-size: .8rem;
 }
 
-.message-text {
+.message-content {
   font-size: 1rem;
 }
 
-.message-text p {
+.message-content p {
   margin: 0;
 }
 
-.message-text code {
+.message-content img {
+  max-width: 100%;
+}
+
+.message-content code {
   background: whitesmoke;
   color: deeppink;
   display: inline-block;
