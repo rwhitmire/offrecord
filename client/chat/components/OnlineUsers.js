@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 
 class OnlineUsers extends Component {
   renderUser(user) {
+    const typing = !!this.props.usersTyping[user.id]
+
     return (
       <li key={user.id}>
         <span className="status online"></span>
         <span className="username">{user.username}</span>
+        {typing && ' ...'}
       </li>
     )
   }
@@ -21,7 +24,7 @@ class OnlineUsers extends Component {
     return (
       <div className="online-users">
         <ul>
-          {users.map(this.renderUser)}
+          {users.map(this.renderUser.bind(this))}
         </ul>
       </div>
     )

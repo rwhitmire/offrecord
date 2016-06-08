@@ -35,5 +35,17 @@ module.exports = function(io) {
       io.to(socket.roomId).emit('message', message)
       messageStore.create(message)
     })
+
+    socket.on('start typing', () => {
+      io.to(socket.roomId).emit('start typing', {
+        user: socket.user
+      })
+    })
+
+    socket.on('end typing', () => {
+      io.to(socket.roomId).emit('end typing', {
+        user: socket.user
+      })
+    })
   })
 }

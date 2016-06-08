@@ -4,43 +4,19 @@ import MessageList from './MessageList'
 import MessageForm from './MessageForm'
 import { onImagePaste } from '../helpers/clipboard'
 
-let windowFocused = true
+let windowHasFocus = true
 
 window.onfocus = function() {
-  windowFocused = true
+  windowHasFocus = true
 }
 
 window.onblur = function() {
-  windowFocused = false
+  windowHasFocus = false
 }
 
 if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
   Notification.requestPermission();
 }
-
-function windowHasFocus() {
-  return windowFocused
-}
-
-
-
-// if (typeof Notification !== 'undefined') {
-//   alert('Please us a modern version of Chrome, Firefox, Opera or Safari.');
-//   return;
-// }
-
-// Notification.requestPermission(function (permission) {
-//   if (permission !== 'granted') return;
-
-//   var notification = new Notification('Here is the title', {
-//     icon: 'http://path.to/my/icon.png',
-//     body: 'Some body text',
-//   });
-
-//   notification.onclick = function () {
-//     window.focus();
-//   };
-// });
 
 function notify(title, body) {
   if (Notification.permission === 'granted') {
@@ -66,7 +42,8 @@ class Chat extends Component {
       messages,
       user,
       roomId,
-      roomUsers
+      roomUsers,
+      usersTyping: {}
     }
   }
 
@@ -85,7 +62,7 @@ class Chat extends Component {
         })
       })
 
-      if(!windowHasFocus()){
+      if(!windowHasFocus){
         notify(message.user.username, message.text)
       }
     })
@@ -99,6 +76,22 @@ class Chat extends Component {
     socket.on('disconnect', data => {
       this.setState({
         roomUsers: data.roomUsers
+      })
+    })
+
+    socket.on('start typing', data => {
+      this.setState({
+        usersTyping: {
+          [data.user.id]: data.user
+        }
+      })
+    })
+
+    socket.on('end typing', data => {
+      delete this.state.usersTyping[data.user.id]
+
+      this.setState({
+        usersTyping: this.state.usersTyping
       })
     })
 
@@ -121,13 +114,26 @@ class Chat extends Component {
     })
   }
 
+  onStartTyping() {
+    this.socket.emit('start typing')
+  }
+
+  onEndTyping() {
+    this.socket.emit('end typing')
+  }
+
   render() {
     return (
       <div className="chat">
-        <OnlineUsers users={this.state.roomUsers} />
+        <OnlineUsers
+          users={this.state.roomUsers}
+          usersTyping={this.state.usersTyping} />
         <div className="chat-inner">
           <MessageList messages={this.state.messages} />
-          <MessageForm onSendMessage={this.sendMessage.bind(this)} />
+          <MessageForm
+            onSendMessage={this.sendMessage.bind(this)}
+            onStartTyping={this.onStartTyping.bind(this)}
+            onEndTyping={this.onEndTyping.bind(this)} />
         </div>
       </div>
     )
