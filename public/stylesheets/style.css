@@ -83,7 +83,8 @@ a:visited {
 
 .message-username {
   margin-right: 10px;
-  color: #111;
+  color: #464646;
+  font-weight: bold;
 }
 
 .message-timestamp {

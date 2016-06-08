@@ -1,3 +1,4 @@
+import moment from 'moment'
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import emojify from '../helpers/emojify'
@@ -46,7 +47,7 @@ class Message extends Component {
             {message.user.username}
           </span>
           <span className="message-timestamp">
-            {new Date(message.timestamp).toLocaleTimeString()}
+            {moment(new Date(message.timestamp)).format('h:mm a')}
           </span>
         </div>
         <div className="message-content">
