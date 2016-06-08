@@ -61,10 +61,8 @@ class Chat extends Component {
     joinRoom()
 
     socket.on('message', message => {
-      this.props.onConditionalScrollToBottom(() => {
-        this.setState({
-          messages: [...this.state.messages, message]
-        })
+      this.setState({
+        messages: [...this.state.messages, message]
       })
 
       if(!windowHasFocus){

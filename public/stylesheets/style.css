@@ -17,23 +17,21 @@ a:visited {
   color: #ff8f00;
 }
 
-.chat {
-  padding: 20px;
-  margin-left: 240px;
+.chat-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 240px;
+  right: 0;
 }
 
 .message-form {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   background: white;
-}
-
-.message-form-inner {
-  padding: 20px;
-  padding-top: 0;
-  margin-left: 240px;
+  margin-bottom: 20px;
+  margin-right: 30px;
 }
 
 .message-form textarea {
@@ -59,8 +57,8 @@ a:visited {
 }
 
 .message-list {
-  margin-bottom: -30px;
-  padding-bottom: 80px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .message {

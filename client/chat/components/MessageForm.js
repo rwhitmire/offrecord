@@ -34,12 +34,10 @@ class MessageForm extends Component {
   render() {
     return (
       <div className="message-form">
-        <div className="message-form-inner">
-          <textarea
-            ref="text"
-            rows="1"
-            onKeyPress={this.onKeyPress.bind(this)} />
-        </div>
+        <textarea
+          ref="text"
+          rows="1"
+          onKeyPress={this.onKeyPress.bind(this)} />
       </div>
     )
   }
