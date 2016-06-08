@@ -50,10 +50,14 @@ class Chat extends Component {
   componentDidMount() {
     const socket = this.socket = io()
 
-    socket.emit('join room', {
-      roomId: this.state.roomId,
-      user: this.state.user
-    })
+    const joinRoom = () => {
+      socket.emit('join room', {
+        roomId: this.state.roomId,
+        user: this.state.user
+      })
+    }
+
+    joinRoom()
 
     socket.on('message', message => {
       this.props.onConditionalScrollToBottom(() => {
@@ -73,7 +77,7 @@ class Chat extends Component {
       })
     })
 
-    socket.on('disconnect', data => {
+    socket.on('leave room', data => {
       this.setState({
         roomUsers: data.roomUsers
       })
@@ -93,6 +97,10 @@ class Chat extends Component {
       this.setState({
         usersTyping: this.state.usersTyping
       })
+    })
+
+    socket.on('reconnect', () => {
+      joinRoom()
     })
 
     onImagePaste(data => {

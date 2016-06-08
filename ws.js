@@ -6,11 +6,10 @@ module.exports = function(io) {
     console.log('a user connected')
 
     socket.on('disconnect', () => {
-      console.log('user disconnected')
       if(!socket.user) return;
       roomUsersStore.disconnectUser(socket.roomId, socket.user.id, socket.id)
 
-      io.to(socket.roomId).emit('disconnect', {
+      io.to(socket.roomId).emit('leave room', {
         user: socket.user,
         roomUsers: roomUsersStore.get(socket.roomId)
       })
