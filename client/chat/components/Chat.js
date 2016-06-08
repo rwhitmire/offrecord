@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import io  from 'socket.io-client'
 import OnlineUsers from './OnlineUsers'
 import MessageList from './MessageList'
 import MessageForm from './MessageForm'
