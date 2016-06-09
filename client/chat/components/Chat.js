@@ -136,10 +136,12 @@ class Chat extends Component {
   render() {
     return (
       <div className="chat">
-        <OnlineUsers
-          users={this.state.roomUsers}
-          usersTyping={this.state.usersTyping} />
-        <div className="chat-inner">
+        <div className="chat-aside">
+          <OnlineUsers
+            users={this.state.roomUsers}
+            usersTyping={this.state.usersTyping} />
+        </div>
+        <div className="chat-main">
           <MessageList
             ref="messageList"
             messages={this.state.messages} />

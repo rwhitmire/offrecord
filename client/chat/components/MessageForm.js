@@ -41,7 +41,7 @@ class MessageForm extends Component {
 
   resizeTextArea() {
     this.refs.text.style.height = `5px`
-    this.refs.text.style.height = `${this.refs.text.scrollHeight + 3}px`
+    this.refs.text.style.height = `${this.refs.text.scrollHeight + 4}px`
     this.props.onTextAreaResize()
   }
 

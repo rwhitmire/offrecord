@@ -17,7 +17,7 @@ a:visited {
   color: #ff8f00;
 }
 
-.chat-inner {
+.chat-main {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -30,25 +30,21 @@ a:visited {
 
 .message-form {
   background: white;
-  margin-bottom: 20px;
-  margin-right: 30px;
+  margin: 0 30px 20px 0;
 }
 
 .message-form textarea {
   display: block;
   width: 100%;
-  padding: 10px 0;
+  padding: 8px;
   resize: none;
   font-family: 'Raleway', sans-serif;
   border: none;
-  border-bottom: 2px solid #e6e6e6;
-  font-size: 1.1rem;
+  border: 2px solid #d6d6d6;
+  font-size: 1.05rem;
   height: auto;
   max-height: 127px;
-}
-
-.message-form textarea:focus {
-  border-color: #7a00ff;
+  border-radius: 3px;
 }
 
 .message-form textarea:focus {
@@ -100,11 +96,15 @@ a:visited {
   border-radius: 2px;
 }
 
-.online-users {
+.chat-aside {
   position: fixed;
   left: 0;
   top: 0;
   width: 220px;
+  bottom: 0;
+  background: #2b4f69;
+  color: #fff;
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2);
 }
 
 .online-users ul {
@@ -143,18 +143,12 @@ a:visited {
 }
 
 @media (max-width: 800px) {
-  .online-users {
+  .chat-aside {
     display: none;
   }
 
-  .chat {
-    margin-left: 0;
-  }
-
-  .message-form-inner {
-    padding: 20px;
-    padding-top: 0;
-    margin-left: 0;
+  .chat-main {
+    left: 20px;
   }
 }
 
