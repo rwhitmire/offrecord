@@ -22,7 +22,7 @@ if (Notification.permission !== 'granted' && Notification.permission !== 'denied
 function notify(title, body) {
   if (Notification.permission === 'granted') {
     const notification = new Notification(title, {
-      icon: null,
+      icon: '/images/logo-64.png',
       body
     });
 

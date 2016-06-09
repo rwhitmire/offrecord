@@ -33,9 +33,13 @@ class MessageList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.messages.length !== this.props.messages.length && this.atBottom){
-      this.scrollToBottom()
+    if(prevProps.messages.length !== this.props.messages.length){
+      this.conditionallyScrollToBottom()
     }
+  }
+
+  conditionallyScrollToBottom() {
+    if(this.atBottom) this.scrollToBottom()
   }
 
   isScrolledToBottom() {
@@ -49,13 +53,18 @@ class MessageList extends Component {
   }
 
   renderMessage(message) {
-    return <Message key={message.timestamp} message={message} />
+    return(
+      <Message
+        key={message.timestamp}
+        message={message}
+        onHeightChange={this.conditionallyScrollToBottom.bind(this)} />
+    )
   }
 
   render() {
     return (
       <div className="message-list">
-        {this.props.messages.map(this.renderMessage)}
+        {this.props.messages.map(this.renderMessage.bind(this))}
       </div>
     );
   }

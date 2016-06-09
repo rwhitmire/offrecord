@@ -58,6 +58,7 @@ a:visited {
 .message-list {
   overflow-y: auto;
   overflow-x: hidden;
+  padding-right: 30px;
 }
 
 .message {
@@ -66,12 +67,6 @@ a:visited {
   margin-left: -6px;
   margin-right: -6px;
   transition: 200ms;
-}
-
-.message:hover {
-  background: #f9f9f9;
-  transition: 200ms;
-  border-radius: 3px;
 }
 
 .message-title {
@@ -161,4 +156,8 @@ a:visited {
     padding-top: 0;
     margin-left: 0;
   }
+}
+
+.image-preview {
+  margin-top: 10px;
 }
