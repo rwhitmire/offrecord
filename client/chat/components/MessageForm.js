@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { findDOMNode } from 'react-dom'
 import { debounce } from 'lodash'
 
 class MessageForm extends Component {
   constructor(props) {
     super(props)
+
     this.typing = false
 
     function endTyping() {
@@ -12,6 +14,12 @@ class MessageForm extends Component {
     }
 
     this.endTypingAfterInterval = debounce(endTyping, 1000)
+  }
+
+  componentDidMount() {
+    // Resize textarea when the component loads
+    // because firefox has weird height behavior.
+    this.resizeTextArea()
   }
 
   onKeyPress(e) {
@@ -31,12 +39,20 @@ class MessageForm extends Component {
     }
   }
 
+  resizeTextArea() {
+    this.refs.text.style.height = `5px`
+    this.refs.text.style.height = `${this.refs.text.scrollHeight + 3}px`
+    this.props.onTextAreaResize()
+  }
+
   render() {
     return (
       <div className="message-form">
         <textarea
           ref="text"
           rows="1"
+          onKeyUp={this.resizeTextArea.bind(this)}
+          onInput={this.resizeTextArea.bind(this)}
           onKeyPress={this.onKeyPress.bind(this)} />
       </div>
     )

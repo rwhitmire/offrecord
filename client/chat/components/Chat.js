@@ -129,6 +129,10 @@ class Chat extends Component {
     this.socket.emit('end typing')
   }
 
+  onTextAreaResize() {
+    this.refs.messageList.scrollToBottom()
+  }
+
   render() {
     return (
       <div className="chat">
@@ -136,11 +140,14 @@ class Chat extends Component {
           users={this.state.roomUsers}
           usersTyping={this.state.usersTyping} />
         <div className="chat-inner">
-          <MessageList messages={this.state.messages} />
+          <MessageList
+            ref="messageList"
+            messages={this.state.messages} />
           <MessageForm
             onSendMessage={this.sendMessage.bind(this)}
             onStartTyping={this.onStartTyping.bind(this)}
-            onEndTyping={this.onEndTyping.bind(this)} />
+            onEndTyping={this.onEndTyping.bind(this)}
+            onTextAreaResize={this.onTextAreaResize.bind(this)} />
         </div>
       </div>
     )
