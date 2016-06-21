@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import { debounce, defer } from 'lodash'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Message from './Message'
 
 class MessageList extends Component {
@@ -64,7 +65,9 @@ class MessageList extends Component {
   render() {
     return (
       <div className="message-list">
-        {this.props.messages.map(this.renderMessage.bind(this))}
+        <ReactCSSTransitionGroup transitionName="new-message" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          {this.props.messages.map(this.renderMessage.bind(this))}
+        </ReactCSSTransitionGroup>
       </div>
     );
   }

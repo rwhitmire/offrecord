@@ -171,3 +171,12 @@ a:visited {
     border-radius: 3px;
     background: #d6d6d6
 }
+
+.new-message-enter {
+  opacity: 0.01;
+}
+
+.new-message-enter.new-message-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
