@@ -17,6 +17,27 @@ a:visited {
   color: #ff8f00;
 }
 
+button,
+input[type="text"] {
+  height: 34px;
+  line-height: 34px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input[type="text"] {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+button {
+  background: #13438c;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  padding: 0 20px;
+}
+
 .chat-main {
   display: flex;
   flex-direction: column;
