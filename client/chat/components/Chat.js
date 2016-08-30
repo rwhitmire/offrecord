@@ -36,8 +36,7 @@ class Chat extends Component {
   constructor(props) {
     super(props);
 
-    // todo: pass these in via props
-    const { messages, user, roomId, roomUsers } = window.payload
+    const { messages, user, roomId, roomUsers } = props
 
     this.state = {
       messages,

@@ -28,23 +28,28 @@ router.post('/:id/login', (req, res, next) => {
 })
 
 router.get('/:id', (req, res, next) => {
-  const roomId = req.params.id
+  const roomId = req.params.id;
 
   if(!req.cookies.session) {
     return res.redirect(`/rooms/${roomId}/login`)
   }
 
+  res.render('room', {
+    roomId
+  })
+})
+
+router.get('/state/:id', (req, res, next) => {
+  const roomId = req.params.id
   const user = JSON.parse(atob(req.cookies.session))
   const roomUsers = roomUsersStore.get(roomId)
   const messages = messageStore.getAllByRoomId(roomId)
 
-  res.render('room', {
-    payload: JSON.stringify({
-      messages,
-      user,
-      roomId,
-      roomUsers
-    })
+  res.json({
+    messages,
+    user,
+    roomId,
+    roomUsers
   })
 })
 
