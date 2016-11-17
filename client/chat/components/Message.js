@@ -10,7 +10,8 @@ class Message extends Component {
     const anchors = findDOMNode(this).querySelectorAll('a')
 
     Object.keys(anchors).forEach(key => {
-      anchors[key].setAttribute('target', 'blank')
+      anchors[key].setAttribute('target', '_blank')
+      anchors[key].setAttribute('rel', 'noopener noreferrer')
     })
   }
 
