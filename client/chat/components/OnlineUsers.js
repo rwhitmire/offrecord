@@ -7,8 +7,10 @@ class OnlineUsers extends Component {
     return (
       <li key={user.id}>
         <span className="status online"></span>
-        <span className="username">{user.username}</span>
-        {typing && ' ...'}
+        <span className="username">
+          {user.username}
+          {typing && ' ...'}
+        </span>
       </li>
     )
   }
