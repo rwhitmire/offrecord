@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 if(process.env.NODE_ENV === 'production') {
   app.use((req, res) => {
     // request.secure doesn't work with dns redirects.
-    if(!req.secure || !req.headers['x-forwarded-proto'] !== 'https') {
+    if(req.headers['x-forwarded-proto'] !== 'https') {
       res.redirect(`https://${req.get('HOST')}${req.url}`)
     }
   })
