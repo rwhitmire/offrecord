@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "npm run dev:server & npm run dev:client",
+    "dev": "npm-run-all --parallel dev:server dev:client",
     "dev:server": "set DEBUG=offrecord:* && nodemon ./bin/www --ignore client --ignore public",
     "dev:client": "set NODE_ENV=development& webpack -w",
     "start": "node ./bin/www",
@@ -43,6 +43,7 @@
     "enzyme": "^2.3.0",
     "jest-cli": "^12.1.1",
     "nodemon": "^1.9.2",
+    "npm-run-all": "^4.0.2",
     "react-addons-test-utils": "^15.1.0"
   },
   "engines": {
