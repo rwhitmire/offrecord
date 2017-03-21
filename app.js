@@ -21,10 +21,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // enforce https in production
 if(process.env.NODE_ENV === 'production') {
-  app.use((req, res) => {
+    app.use((req, res, next) => {
     if(!req.secure) {
-      res.redirect(`https://${req.get('HOST')}${req.url}`)
+      var secureUrl = "https://" + req.headers['host'] + req.url
+      res.writeHead(301, { "Location":  secureUrl })
+      res.end()
     }
+    next()
   })
 }
 
