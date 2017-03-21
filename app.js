@@ -19,14 +19,14 @@ app.use(cookieParser())
 app.use(compression())
 app.use(express.static(path.join(__dirname, 'public')))
 
-// enforce https in production
-// if(process.env.NODE_ENV === 'production') {
-//   app.use((req, res) => {
-//     if(!req.secure) {
-//       res.redirect(`https://${req.get('HOST')}${req.url}`)
-//     }
-//   })
-// }
+if(process.env.NODE_ENV === 'production') {
+  app.use((req, res) => {
+    // request.secure doesn't work with dns redirects.
+    if(req.headers['x-forwarded-proto'] !== 'https') {
+      res.redirect(`https://${req.get('HOST')}${req.url}`)
+    }
+  })
+}
 
 app.use('/', require('./routes/index'))
 app.use('/rooms', require('./routes/rooms'))
