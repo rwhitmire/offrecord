@@ -19,14 +19,16 @@ app.use(cookieParser())
 app.use(compression())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use((req, res, next) => {
-  if(req.headers['x-forwarded-proto'] !== 'https') {
-    res.redirect(`https://${req.get('HOST')}${req.url}`)
-  }
-  else {
-    next()
-  }
-})
+if(process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if(req.headers['x-forwarded-proto'] !== 'https') {
+      res.redirect(`https://${req.get('HOST')}${req.url}`)
+    }
+    else {
+      next()
+    }
+  })
+}
 
 app.use('/', require('./routes/index'))
 app.use('/rooms', require('./routes/rooms'))
