@@ -4,6 +4,7 @@ var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var compression = require('compression')
+var forceSSL = require('express-force-ssl')
 var app = express()
 
 app.disable('x-powered-by');
@@ -20,12 +21,7 @@ app.use(compression())
 app.use(express.static(path.join(__dirname, 'public')))
 
 if(process.env.NODE_ENV === 'production') {
-  app.use((req, res) => {
-    // request.secure doesn't work with dns redirects.
-    if(req.headers['x-forwarded-proto'] !== 'https') {
-      res.redirect(`https://${req.get('HOST')}${req.url}`)
-    }
-  })
+  app.use(forceSSL)
 }
 
 app.use('/', require('./routes/index'))
