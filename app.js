@@ -19,6 +19,11 @@ app.use(cookieParser())
 app.use(compression())
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.use((req, res, next) => {
+  console.log('SECURE:', req.secure)
+  console.log('HEADERS', req.headers)
+})
+
 app.use('/', require('./routes/index'))
 app.use('/rooms', require('./routes/rooms'))
 
