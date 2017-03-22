@@ -4,7 +4,6 @@ var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var compression = require('compression')
-var forceSSL = require('express-force-ssl')
 var app = express()
 
 app.disable('x-powered-by');
@@ -19,10 +18,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(compression())
 app.use(express.static(path.join(__dirname, 'public')))
-
-if(process.env.NODE_ENV === 'production') {
-  app.use(forceSSL)
-}
 
 app.use('/', require('./routes/index'))
 app.use('/rooms', require('./routes/rooms'))
