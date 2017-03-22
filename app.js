@@ -22,6 +22,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use((req, res, next) => {
   console.log('SECURE:', req.secure)
   console.log('HEADERS', req.headers)
+
+  if(req.headers['x-forwarded-proto'] !== 'https') {
+    res.redirect(`https://${req.get('HOST')}${req.url}`)
+  }
+
   next()
 })
 
