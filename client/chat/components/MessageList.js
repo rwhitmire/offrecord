@@ -45,7 +45,8 @@ class MessageList extends Component {
 
   isScrolledToBottom() {
     const node = findDOMNode(this)
-    return node.offsetHeight + node.scrollTop >= node.scrollHeight;
+    console.log(node.offsetHeight + node.scrollTop, node.scrollHeight)
+    return node.offsetHeight + node.scrollTop >= node.scrollHeight - 20;
   }
 
   scrollToBottom() {
